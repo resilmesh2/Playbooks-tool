@@ -1,0 +1,30 @@
+#+TITLE: Shuffle
+
+This project contains all the necessary resources to build and deploy Shuffle on
+the ResilMesh network.
+
+* Deployment
+
+#+NAME: shuffle-run
+#+begin_src sh
+  docker compose up -d 2>&1
+#+end_src
+
+* COMMENT Code blocks
+
+** Variables
+
+#+NAME: shuffle-port
+#+begin_src emacs-lisp :cache yes
+  3001
+#+end_src
+
+#+NAME: shuffle-endpoint-ncat-conn
+#+begin_src emacs-lisp :cache yes
+  "aa2e31ea-dd3e-4471-ad4e-3f032bdb381d"
+#+end_src
+
+#+NAME: shuffle-endpoint-exec-perm
+#+begin_src emacs-lisp :cache yes
+  "6b219a4d-9723-4607-b6c6-6e56f790650c"
+#+end_src
