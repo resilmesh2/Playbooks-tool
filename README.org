@@ -5,14 +5,62 @@ the ResilMesh network.
 
 * Deployment
 
-#+NAME: shuffle-run
+** Volume setup
+
+Before deployment, the database folder has to be properly set up.  Additionally,
+swap has to be off on the host.  You will likely need administrator privileges
+for this step.  ~$volumes~ refers to the =volumes/= directory located at the
+root of this project, where the Shuffle volumes will be stored.
+
+#+NAME: shuffle-prepare
+#+begin_src sh :dir (concat "/sudo::" (expand-file-name ".")) :var volumes=shuffle-volume-folder :results silent
+  mkdir -p $volumes/database $volumes/apps $volumes/files
+  chown -R 1000:1000 $volumes
+  chmod -R 755 $volumes
+  swapoff -a
+#+end_src
+
+** Creating the ResilMesh network
+
+All ResilMesh containers run on a special network called =resilmesh_network=.
+This network should be created in advance with the ~docker network create~
+command.  There are several static IPs in use by the project that are dependent
+on the ResilMesh network, so please ensure that the subnet they belong to
+matches the one used by the network.  The default configuration assumes the
+subnet =192.168.200.1/24=.  A network using this subnet can be created using the
+following command.
+
 #+begin_src sh
+  docker network create --subnet 192.168.200.0/24 --gateway=192.168.200.1 resilmesh_network
+#+end_src
+
+** Setting environment variables
+
+The project includes an =.env.example= file with information regarding the
+available environment variables.  Make a copy of the file, rename it to =.env=,
+and fill/modify any necessary values.
+
+
+** Running the Compose file
+
+#+NAME: shuffle-run
+#+begin_src sh :results verbatim
   docker compose up -d 2>&1
+#+end_src
+
+#+NAME: shuffle-kill
+#+begin_src sh :results verbatim
+  docker compose down --remove-orphans 2>&1
 #+end_src
 
 * COMMENT Code blocks
 
 ** Variables
+
+#+NAME: shuffle-volume-folder
+#+begin_src emacs-lisp :cache yes
+  (concat default-directory "/volumes")
+#+end_src
 
 #+NAME: shuffle-port
 #+begin_src emacs-lisp :cache yes
