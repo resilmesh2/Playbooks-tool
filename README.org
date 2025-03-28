@@ -23,15 +23,10 @@ root of this project, where the Shuffle volumes will be stored.
 ** Creating the ResilMesh network
 
 All ResilMesh containers run on a special network called =resilmesh_network=.
-This network should be created in advance with the ~docker network create~
-command.  There are several static IPs in use by the project that are dependent
-on the ResilMesh network, so please ensure that the subnet they belong to
-matches the one used by the network.  The default configuration assumes the
-subnet =192.168.200.0/24=.  A network using this subnet can be created using the
-following command.
+This network should be created in advance with the following command:
 
 #+begin_src sh
-  docker network create --subnet 192.168.200.0/24 --gateway=192.168.200.1 resilmesh_network
+  docker network create resilmesh_network
 #+end_src
 
 ** Setting environment variables
@@ -39,7 +34,6 @@ following command.
 The project includes an =.env.example= file with information regarding the
 available environment variables.  Make a copy of the file, rename it to =.env=,
 and fill/modify any necessary values.
-
 
 ** Running the Compose file
 
