@@ -47,7 +47,7 @@ and fill/modify any necessary values.
   docker compose down --remove-orphans 2>&1
 #+end_src
 
-* COMMENT Code blocks
+* COMMENT Babel
 
 ** Variables
 
@@ -69,4 +69,26 @@ and fill/modify any necessary values.
 #+NAME: shuffle-endpoint-exec-perm
 #+begin_src emacs-lisp :cache yes
   "6b219a4d-9723-4607-b6c6-6e56f790650c"
+#+end_src
+
+** Code blocks
+
+#+NAME: shuffle-mitigation-ncat-conn
+#+begin_src verb :wrap src ob-verb-response
+  GET http://localhost:{{(org-sbe shuffle-port)}}/api/v1/hooks/webhook_{{(org-sbe shuffle-endpoint-ncat-conn)}}
+
+  {
+    "dst_ip": "127.0.0.1"
+  }
+#+end_src
+
+#+NAME: shuffle-mitigation-exec-perm
+#+begin_src verb :wrap src ob-verb-response
+  GET http://localhost:{{(org-sbe shuffle-port)}}/api/v1/hooks/webhook_{{(org-sbe shuffle-endpoint-exec-perm)}}
+
+  {
+    "sha1_after": "b8ae48c2e46c28f1004e006348af557c7d912036b9ead88be67bca2bafde01d3",
+    "actuator_ip": "127.0.0.1",
+    "file_path": "/tmp/test.txt"
+  }
 #+end_src
