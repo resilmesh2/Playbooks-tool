@@ -19,7 +19,7 @@ Resilmesh GitHub upload:
     - git remote remove github || true
     - git remote add github "https://oauth2:${GITHUB_TOKEN}@github.com/resilmesh2/Playbooks-tool.git"
   script:
-    - echo "Pushing 'release' branch to Resilmesh 'master' branch..."
+    - echo "Pushing 'release' branch to Resilmesh 'main' branch..."
     - git fetch origin release
     - git push --force github refs/remotes/origin/release:refs/heads/main
   rules:
