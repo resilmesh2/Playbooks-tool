@@ -1,9 +1,9 @@
-#+TITLE: Shuffle
+#+TITLE: Playbooks Tool
 
-This project contains all the necessary resources to build and deploy Shuffle on
-the ResilMesh network.
+This project contains all the necessary resources to build and deploy the
+Playbooks Tool component on the ResilMesh network.
 
-* Deployment
+* Shuffle
 
 ** Volume setup
 
@@ -57,21 +57,17 @@ and fill/modify any necessary values.
 #+end_src
 
 #+NAME: shuffle-port
-#+begin_src emacs-lisp :cache yes
-  3001
-#+end_src
+: 3001
 
 #+NAME: shuffle-endpoint-ncat-conn
-#+begin_src emacs-lisp :cache yes
-  "aa2e31ea-dd3e-4471-ad4e-3f032bdb381d"
-#+end_src
+: aa2e31ea-dd3e-4471-ad4e-3f032bdb381d
 
 #+NAME: shuffle-endpoint-exec-perm
-#+begin_src emacs-lisp :cache yes
-  "6b219a4d-9723-4607-b6c6-6e56f790650c"
-#+end_src
+: 6b219a4d-9723-4607-b6c6-6e56f790650c
 
 ** Code blocks
+
+*** Shuffle
 
 #+NAME: shuffle-mitigation-ncat-conn
 #+begin_src verb :wrap src ob-verb-response
