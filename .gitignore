@@ -7,6 +7,7 @@
 
 # Shuffle volumes
 volumes
+shuffle-database
 
 ## Emacs
 *~
