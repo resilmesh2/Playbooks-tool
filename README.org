@@ -53,12 +53,12 @@ documentation]].
 
 #+NAME: shuffle-run
 #+begin_src sh :results verbatim
-  docker compose up -d 2>&1
+  docker compose --env-file .env up -d 2>&1
 #+end_src
 
 #+NAME: shuffle-kill
 #+begin_src sh :results verbatim
-  docker compose down --remove-orphans 2>&1
+  docker compose --env-file .env down --remove-orphans 2>&1
 #+end_src
 
 * COMMENT Babel
