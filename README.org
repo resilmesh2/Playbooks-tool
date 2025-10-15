@@ -1,7 +1,7 @@
 #+TITLE: Playbooks Tool
 
 This project contains all the necessary resources to build and deploy the
-Playbooks Tool component on the ResilMesh network.
+Playbooks Tool component on the Resilmesh network.
 
 * Shuffle
 
@@ -20,9 +20,9 @@ root of this project, where the Shuffle volumes will be stored.
   swapoff -a
 #+end_src
 
-** Creating the ResilMesh network
+** Creating the Resilmesh network
 
-All ResilMesh containers run on a special network called =resilmesh_network=.
+All Resilmesh containers run on a special network called =resilmesh_network=.
 This network should be created in advance with the following command:
 
 #+begin_src sh
