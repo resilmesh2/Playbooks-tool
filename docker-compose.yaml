@@ -8,6 +8,8 @@ services:
       - "${FRONTEND_PORT_HTTPS}:443"
     networks:
       resilmesh:
+        aliases:
+          - resilmesh-pt
     environment:
       - BACKEND_HOSTNAME=${BACKEND_HOSTNAME}
     restart: unless-stopped
