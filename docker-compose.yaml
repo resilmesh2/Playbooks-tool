@@ -7,7 +7,7 @@ services:
       - "${FRONTEND_PORT}:80"
       - "${FRONTEND_PORT_HTTPS}:443"
     networks:
-      resilmesh_network:
+      resilmesh:
     environment:
       - BACKEND_HOSTNAME=${BACKEND_HOSTNAME}
     restart: unless-stopped
@@ -21,7 +21,7 @@ services:
     ports:
       - "${BACKEND_PORT}:5001"
     networks:
-      resilmesh_network:
+      resilmesh:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./volumes/apps:/shuffle-apps:z
@@ -37,7 +37,7 @@ services:
     container_name: shuffle-orborus
     hostname: shuffle-orborus
     networks:
-      resilmesh_network:
+      resilmesh:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -86,7 +86,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      resilmesh_network:
+      resilmesh:
     restart: unless-stopped
 
   #memcached:
@@ -129,8 +129,9 @@ services:
   #    - shuffle
   #
 networks:
-  resilmesh_network:
+  resilmesh:
     external: true
+    name: resilmesh_network
     # uncomment to set MTU for swarm mode.
     # MTU should be whatever is your host's preferred MTU is.
     # Refer to this doc to figure out what your host's MTU is:
