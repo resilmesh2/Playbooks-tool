@@ -12,7 +12,7 @@ swap has to be off on the host.  You will likely need administrator privileges
 for this step.  ~$volumes~ refers to the =volumes/= directory located at the
 root of this project, where the Shuffle volumes will be stored.
 
-#+NAME: shuffle-prepare
+#+NAME: prepare-shuffle-directories
 #+begin_src sh :dir (concat "/sudo::" (expand-file-name ".")) :var volumes=shuffle-volume-folder :results silent
   mkdir -p $volumes/database $volumes/apps $volumes/files
   chown -R 1000:1000 $volumes
@@ -25,6 +25,7 @@ root of this project, where the Shuffle volumes will be stored.
 All Resilmesh containers run on a special network called =resilmesh_network=.
 This network should be created in advance with the following command:
 
+#+NAME: create-resilmesh-network
 #+begin_src sh
   docker network create resilmesh_network
 #+end_src
@@ -35,30 +36,16 @@ The project includes an =.env.example= file with information regarding the
 available environment variables.  Make a copy of the file, rename it to =.env=,
 and fill/modify any necessary values.
 
-*** Shuffle environment variables
-
-All Shuffle-related variables are mostly predefined by Shuffle, and require
-little changes from the defaults.  This includes empty environment variables,
-which only need to be defined in specific deployments that aren't relevant to
-the Playbooks Tool component.
-
-To change the ports exposed by the Shuffle containers, modify the =BACKEND_PORT=
-and =FRONTEND_PORT= / =FRONTEND_PORT_HTTPS= environment variables.  It is
-recommended to leave the remaining environment variables mostly unchanged, in
-order to avoid potential issues from incompatible values.  If modifying other
-variables nonetheless, we recommend reading through the [[https://shuffler.io/docs/configuration][official Shuffle
-documentation]].
-
 ** Running the Compose file
 
-#+NAME: shuffle-run
+#+NAME: docker-up
 #+begin_src sh :results verbatim
-  docker compose --env-file .env up -d 2>&1
+  docker compose up -d
 #+end_src
 
-#+NAME: shuffle-kill
+#+NAME: docker-down
 #+begin_src sh :results verbatim
-  docker compose --env-file .env down --remove-orphans 2>&1
+  docker compose down --remove-orphans
 #+end_src
 
 * COMMENT Babel
@@ -71,34 +58,25 @@ documentation]].
 #+end_src
 
 #+NAME: shuffle-port
-: 3001
+: 5001
 
-#+NAME: shuffle-endpoint-ncat-conn
-: aa2e31ea-dd3e-4471-ad4e-3f032bdb381d
-
-#+NAME: shuffle-endpoint-exec-perm
-: 6b219a4d-9723-4607-b6c6-6e56f790650c
+#+NAME: shuffle-api-key
+: 7256dc1d-cadb-4414-9ee0-9048b70bc765
 
 ** Code blocks
 
-*** Shuffle
+*** Get apps
 
-#+NAME: shuffle-mitigation-ncat-conn
-#+begin_src verb :wrap src ob-verb-response
-  GET http://localhost:{{(org-sbe shuffle-port)}}/api/v1/hooks/webhook_{{(org-sbe shuffle-endpoint-ncat-conn)}}
-
-  {
-    "dst_ip": "127.0.0.1"
-  }
+#+NAME: get-apps
+#+begin_src sh :wrap src json-ts :results verbatim :var port=shuffle-port :var key=shuffle-api-key
+  curl http://localhost:$port/api/v1/apps \
+      -H "Authorization: Bearer $key"| jq -M
 #+end_src
 
-#+NAME: shuffle-mitigation-exec-perm
-#+begin_src verb :wrap src ob-verb-response
-  GET http://localhost:{{(org-sbe shuffle-port)}}/api/v1/hooks/webhook_{{(org-sbe shuffle-endpoint-exec-perm)}}
+*** Get workflows
 
-  {
-    "sha1_after": "b8ae48c2e46c28f1004e006348af557c7d912036b9ead88be67bca2bafde01d3",
-    "actuator_ip": "127.0.0.1",
-    "file_path": "/tmp/test.txt"
-  }
+#+NAME: shuffle-get-workflows
+#+begin_src sh :wrap src json-ts :results verbatim :var port=shuffle-port :var key=shuffle-api-key
+  curl http://localhost:$port/api/v1/workflows \
+      -H "Authorization: Bearer $key"| jq -M
 #+end_src
