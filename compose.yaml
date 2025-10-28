@@ -22,7 +22,7 @@ services:
     expose:
       - 5001
     networks:
-      resilmesh:
+      - resilmesh_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./volumes/apps:/shuffle-apps:z
