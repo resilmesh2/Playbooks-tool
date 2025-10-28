@@ -9,7 +9,7 @@ services:
     ports:
       - ${PT_FRONTEND_PORT}:443
     networks:
-      resilmesh:
+      - resilmesh_network
     environment:
       - BACKEND_HOSTNAME=resilmesh-pt
     restart: unless-stopped
@@ -38,7 +38,7 @@ services:
     container_name: Resilmesh-PT-Orborus
     hostname: resilmesh-pt-orborus
     networks:
-      resilmesh:
+      - resilmesh_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     env_file: container.env
@@ -87,7 +87,7 @@ services:
     ports:
       - 9200:9200
     networks:
-      resilmesh:
+      - resilmesh_network
     restart: unless-stopped
 
   #memcached:
@@ -134,10 +134,6 @@ volumes:
   shuffle-database:
     name: pt-opensearch-db
 
-networks:
-  resilmesh:
-    external: true
-    name: resilmesh_network
     # uncomment to set MTU for swarm mode.
     # MTU should be whatever is your host's preferred MTU is.
     # Refer to this doc to figure out what your host's MTU is:
