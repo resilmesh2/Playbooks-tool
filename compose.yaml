@@ -63,11 +63,7 @@ services:
   resilmesh-sop-pt-opensearch:
     image: opensearchproject/opensearch:2.19.1
     container_name: resilmesh-sop-pt-opensearch
-<<<<<<< HEAD
     hostname: resilmesh-sop-pt-opensearch
-=======
-    hostname: resilmesh-sop-pt-frontend
->>>>>>> 5fee43714c8208262749d022895dde124e9ccbbd
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
       - bootstrap.memory_lock=true
