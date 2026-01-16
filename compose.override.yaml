@@ -1,4 +1,4 @@
 services:
-  pt:
+  resilmesh-sop-pt:
     ports:
       - 5001:5001

@@ -1,8 +1,7 @@
 services:
-  pt_frontend:
+  resilmesh-sop-pt-frontend:
     image: ghcr.io/shuffle/shuffle-frontend:latest
-    container_name: resilmesh_sop_pt_frontend
-    hostname: resilmesh_sop_pt_frontend
+    hostname: resilmesh-sop-pt-frontend
     expose:
       - 80
       - 443
@@ -14,11 +13,10 @@ services:
       - BACKEND_HOSTNAME=resilmesh-pt
     restart: unless-stopped
     depends_on:
-      - pt
-  pt:
+      - resilmesh-sop-pt
+  resilmesh-sop-pt:
     image: ghcr.io/shuffle/shuffle-backend:latest
-    container_name: resilmesh_sop_pt
-    hostname: resilmesh_sop_pt
+    hostname: resilmesh-sop-pt
     expose:
       - 5001
     networks:
@@ -33,10 +31,9 @@ services:
       - SHUFFLE_FILE_LOCATION=/shuffle-files
       - SHUFFLE_OPENSEARCH_PASSWORD=${PT_OPENSEARCH_PASSWORD}
     restart: unless-stopped
-  pt_orborus:
+  resilmesh-sop-pt-orborus:
     image: ghcr.io/shuffle/shuffle-orborus:latest
-    container_name: resilmesh_sop_pt_orborus
-    hostname: resilmesh_sop_pt_orborus
+    hostname: resilmesh-sop-pt-orborus
     networks:
       resilmesh:
     volumes:
@@ -60,10 +57,9 @@ services:
     restart: unless-stopped
     security_opt:
       - seccomp:unconfined
-  pt_opensearch:
+  resilmesh-sop-pt-opensearch:
     image: opensearchproject/opensearch:2.19.1
-    container_name: resilmesh_sop_pt_opensearch
-    hostname: resilmesh_sop_pt_opensearch
+    container_name: resilmesh-sop-pt-opensearch
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
       - bootstrap.memory_lock=true
