@@ -1,6 +1,7 @@
 services:
   resilmesh-sop-pt-frontend:
     image: ghcr.io/shuffle/shuffle-frontend:latest
+    container_name: resilmesh-sop-pt-frontend
     hostname: resilmesh-sop-pt-frontend
     expose:
       - 80
@@ -16,6 +17,7 @@ services:
       - resilmesh-sop-pt
   resilmesh-sop-pt:
     image: ghcr.io/shuffle/shuffle-backend:latest
+    container_name: resilmesh-sop-pt
     hostname: resilmesh-sop-pt
     expose:
       - 5001
@@ -33,6 +35,7 @@ services:
     restart: unless-stopped
   resilmesh-sop-pt-orborus:
     image: ghcr.io/shuffle/shuffle-orborus:latest
+    container_name: resilmesh-sop-pt-orborus
     hostname: resilmesh-sop-pt-orborus
     networks:
       resilmesh:
@@ -60,6 +63,7 @@ services:
   resilmesh-sop-pt-opensearch:
     image: opensearchproject/opensearch:2.19.1
     container_name: resilmesh-sop-pt-opensearch
+    hostname: resilmesh-sop-pt-frontend
     environment:
       - "OPENSEARCH_JAVA_OPTS=-Xms2048m -Xmx2048m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
       - bootstrap.memory_lock=true
