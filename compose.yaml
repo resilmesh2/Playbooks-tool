@@ -11,7 +11,7 @@ services:
     networks:
       resilmesh:
     environment:
-      - BACKEND_HOSTNAME=resilmesh-pt
+      - BACKEND_HOSTNAME=resilmesh-sop-pt
     restart: unless-stopped
     depends_on:
       - resilmesh-sop-pt
@@ -47,7 +47,7 @@ services:
       - SHUFFLE_ORBORUS_EXECUTION_CONCURRENCY=7
       - ENVIRONMENT_NAME=Shuffle
       - ORG_ID=Shuffle
-      - BASE_URL=http://resilmesh-pt:5001
+      - BASE_URL=http://resilmesh-sop-pt:5001
       - DOCKER_API_VERSION=1.40
       - HTTP_PROXY=
       - HTTPS_PROXY=
